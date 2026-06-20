@@ -1,0 +1,16 @@
+=== API generate (loads ~18GB w/ offload, then generates) ===
+GEN   : 256 tok in 6.2s = 41.5 tok/s
+PROMPT: 31 tok in 0.34s = 91 tok/s
+LOAD  : 47.7s
+--- sample ---
+```python
+def binary_search(arr, target):
+    """
+    Perform binary search on a sorted array to find the index of the target element.
+    
+    This function im
+=== ollama ps (GPU/CPU split) ===
+NAME               ID              SIZE     PROCESSOR          CONTEXT    UNTIL              
+qwen3-coder:30b    06c1097efce0    19 GB    25%/75% CPU/GPU    4096       4 minutes from now    
+=== nvidia-smi ===
+15639 MiB, 412 MiB

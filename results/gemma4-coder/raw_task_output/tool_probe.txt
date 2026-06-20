@@ -1,0 +1,25 @@
+=== launch (Q6, --jinja => tool parsing on) ===
+[ready ~16s]
+
+================ TOOL-CALLING PROBE ================
+[PASS] 1 single tool call (get_weather/Paris)
+        name=get_weather args={"location":"Paris"}
+[PASS] 2 choose right tool (read_file/config.yaml)
+        name=read_file args={"path":"config.yaml"}
+[FAIL] 3 multi-arg tool (write_file hello.py)
+        name=None args=None
+[PASS] 4 no spurious tool call (17*23=391)
+        tool_calls=0 content='391'
+[PASS] 5 multi-turn (uses tool result in answer)
+        final='The weather in Tokyo is currently clear with a temperature of 21°C.'
+---- 4/5 passed ----
+=== server log (tool-format hints) ===
+5.07.924.007 W load: control-looking token:     50 '<|tool_response>' was not control-type; this is probably a bug in the model. its type will be overridden
+5.07.947.008 W load: special_eog_ids contains '<|tool_response>', removing '</s>' token from EOG list
+5.22.800.470 I init: chat template, example_format: '<|turn>system
+5.22.801.015 I srv          init: init: chat template, thinking = 1
+5.26.885.749 I srv  params_from_: Chat format: peg-gemma4
+5.35.160.869 I srv  params_from_: Chat format: peg-gemma4
+5.37.570.355 I srv  params_from_: Chat format: peg-gemma4
+5.40.742.953 I srv  params_from_: Chat format: peg-gemma4
+done.

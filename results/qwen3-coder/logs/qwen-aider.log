@@ -1,0 +1,61 @@
+########## TASK 1 (add multiply, edit-format=diff) ##########
+                                                                                
+ <<<<<<< SEARCH                                                                 
+ def add(a, b):                                                                 
+     """Return the sum of a and b."""                                           
+     return a + b                                                               
+ =======                                                                        
+ def add(a, b):                                                                 
+     """Return the sum of a and b."""                                           
+     return a + b                                                               
+                                                                                
+ def multiply(a, b):                                                            
+     """Return the product of a and b."""                                       
+     return a * b                                                               
+ >>>>>>> REPLACE                                                                
+                                                                                
+
+Tokens: 2.5k sent, 82 received.
+Applied edit to mathutils.py
+----- mathutils.py after -----
+def add(a, b):
+    """Return the sum of a and b."""
+    return a + b
+
+def multiply(a, b):
+    """Return the product of a and b."""
+    return a * b
+----- verify -----
+multiply(6,7)= 42
+TASK1_PASS
+########## TASK 2 (fix empty-list bug, edit-format=diff) ##########
+ def average(nums):                                                             
+     total = 0                                                                  
+     for n in nums:                                                             
+         total += n                                                             
+     return total / len(nums)   # crashes on empty list                         
+ =======                                                                        
+ def average(nums):                                                             
+     if not nums:                                                               
+         return 0.0                                                             
+     total = 0                                                                  
+     for n in nums:                                                             
+         total += n                                                             
+     return total / len(nums)                                                   
+ >>>>>>> REPLACE                                                                
+                                                                                
+
+Tokens: 2.5k sent, 150 received.
+Applied edit to buggy.py
+----- buggy.py after -----
+def average(nums):
+    if not nums:
+        return 0.0
+    total = 0
+    for n in nums:
+        total += n
+    return total / len(nums)
+----- verify -----
+avg([])= 0.0 avg([2,4])= 3.0
+TASK2_PASS
+QWEN_AIDER_DONE

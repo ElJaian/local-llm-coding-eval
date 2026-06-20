@@ -1,0 +1,10 @@
+[dl] 23:37:17 downloading Q6_K then Q8_0 to /home/dev/llm/infer/models/gemma4-coder
+[32m✓ Downloaded[0m
+  path: /home/dev/llm/infer/models/gemma4-coder/gemma4-coding-Q6_K.gguf
+Q6_EXIT=0  00:00:30
+[32m✓ Downloaded[0m
+  path: /home/dev/llm/infer/models/gemma4-coder/gemma4-coding-Q8_0.gguf
+Q8_EXIT=0  00:34:07
+=== final files ===
+-rw-r--r-- 1 dev dev  9786020384 Jun 20 00:00 /home/dev/llm/infer/models/gemma4-coder/gemma4-coding-Q6_K.gguf
+-rw-r--r-- 1 dev dev 12669645344 Jun 20 00:34 /home/dev/llm/infer/models/gemma4-coder/gemma4-coding-Q8_0.gguf

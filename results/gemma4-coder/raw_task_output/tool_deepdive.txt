@@ -1,0 +1,16 @@
+[server ready ~0s]
+[PASS] A write_file via tool
+        tool=write_file | code_in_text=False | content[:90]="I'll create `hello.py` with a single `print` statement.\n\n"
+[PASS] B write_file with tool_choice=required
+        tool=write_file args={"content":"print('hello world')\n","path":"hello.py"}
+[FAIL] C run_shell(pytest)
+        tool=run_shell args={"cmd":"ls -R"}
+[PASS] D parallel tool calls (read a.py + b.py)
+        num_calls=2 names=['read_file', 'read_file']
+[FAIL] E edit_file (8000->9000)
+        tool=read_file args={"path":"server.py"}
+[PASS] F enum arg (Berlin/fahrenheit)
+        args={"location":"Berlin","unit":"fahrenheit"}
+
+==== TOOL DEEP-DIVE: 4/6 passed ====
+done.

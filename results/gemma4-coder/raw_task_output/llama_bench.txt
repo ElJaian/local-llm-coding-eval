@@ -1,0 +1,25 @@
+=== bench binary ===
+-rwxr-xr-x 1 dev dev 17920 Jun  6 20:20 /home/dev/llm/infer/llama.cpp/build/bin/llama-bench
+14714 MiB
+
+################## gemma4-coding-Q6_K ##################
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 16310 MiB):
+  Device 0: NVIDIA GeForce RTX 5060 Ti, compute capability 12.0, VMM: yes, VRAM: 16310 MiB
+| model                          |       size |     params | backend    | ngl |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --: | --------------: | -------------------: |
+| gemma4 ?B Q6_K                 |   9.10 GiB |    11.91 B | CUDA       |  99 |   1 |           pp512 |      1843.93 ± 85.57 |
+| gemma4 ?B Q6_K                 |   9.10 GiB |    11.91 B | CUDA       |  99 |   1 |           tg128 |         37.56 ± 0.33 |
+
+build: 98d5e8b (1)
+
+################## gemma4-coding-Q8_0 ##################
+ggml_cuda_init: found 1 CUDA devices (Total VRAM: 16310 MiB):
+  Device 0: NVIDIA GeForce RTX 5060 Ti, compute capability 12.0, VMM: yes, VRAM: 16310 MiB
+| model                          |       size |     params | backend    | ngl |  fa |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --: | --------------: | -------------------: |
+| gemma4 ?B Q8_0                 |  11.78 GiB |    11.91 B | CUDA       |  99 |   1 |           pp512 |     1352.23 ± 118.93 |
+| gemma4 ?B Q8_0                 |  11.78 GiB |    11.91 B | CUDA       |  99 |   1 |           tg128 |         27.97 ± 8.11 |
+
+build: 98d5e8b (1)
+
+=== done ===

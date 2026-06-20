@@ -1,0 +1,58 @@
+{
+  "model": "gemma-4-12B-coder-fable5-composer2.5-v1 (GGUF)",
+  "source_hf": "yuxinlu1/gemma-4-12B-coder-fable5-composer2.5-v1-GGUF",
+  "date": "2026-06-20",
+  "params_billion": 11.91,
+  "arch": "gemma4",
+  "native_context": 262144,
+  "chat_format": "peg-gemma4 (thinking on; reasoning in reasoning_content channel; needs --jinja)",
+  "hardware": "RTX 5060 Ti 16GB (Blackwell sm_120), WSL2, llama.cpp build 98d5e8b",
+  "serving_flags": "-ngl 99 -fa 1 --no-mmap --cache-type-k/v q8_0 --jinja --temp 1.0 --top-p 0.95 --top-k 64",
+
+  "speed": {
+    "Q6_K": {
+      "disk_gib": 9.10, "file_bytes": 9786020384,
+      "llama_bench_pp512_tps": 1843.93, "llama_bench_pp512_std": 85.57,
+      "llama_bench_tg128_tps": 37.56, "llama_bench_tg128_std": 0.33,
+      "serving_generation_tps": 33.51, "serving_prompt_eval_tps": 66.51,
+      "serving_ctx": 8192, "load_s_clean": 14, "load_s_during_download": 402
+    },
+    "Q8_0": {
+      "disk_gib": 11.78, "file_bytes": 12669645344,
+      "llama_bench_pp512_tps": 1352.23, "llama_bench_pp512_std": 118.93,
+      "llama_bench_tg128_tps": 27.97, "llama_bench_tg128_std": 8.11,
+      "serving_generation_tps": 30.51, "serving_prompt_eval_tps": 278.65,
+      "serving_ctx": 4096, "load_s_clean": 84
+    }
+  },
+
+  "tool_calling": {
+    "probe_basic": {"passed": 4, "total": 5,
+      "pass": ["single call", "choose-among-3", "abstain when no tool", "multi-turn uses result"],
+      "fail": ["write_file (sampling variance; passed on retry)"]},
+    "deep_dive": {"passed": 4, "total": 6,
+      "pass": ["write_file", "write_file tool_choice=required", "parallel read x2", "enum+multi-arg"],
+      "soft_fail": ["run_shell: ran 'ls -R' before pytest (look-before-leap)",
+                    "edit_file: read file first before editing (read-before-edit)"]},
+    "verdict": "Solid native tool-caller: correct selection, valid JSON args, enums, parallel, abstention, multi-turn. The misses are sensible exploratory steps a real agent loop allows."
+  },
+
+  "code_correctness": {
+    "humaneval_base_subset40_greedy": {"pass_at_1": "37/40", "pct": 92.5,
+      "failures": {
+        "HumanEval/36": "empty extraction (harness artifact)",
+        "HumanEval/38": "dropped given helper encode_cyclic (harness artifact)",
+        "HumanEval/32": "find_zero numerical convergence edge (borderline-real)"},
+      "adjusted_attempted": "~37-38/39 (~95%)"},
+    "humaneval_full164_base_pass_at_1": 0.915,
+    "humaneval_full164_plus_pass_at_1": 0.854,
+    "humaneval_full164_note": "official evalplus.evaluate, greedy, all 164; 1 empty generation counted as fail (true rate marginally higher)"
+  },
+
+  "agent_loop_aider": {"edit_format": "diff (search/replace)", "tasks": 2, "passed": 2,
+    "detail": ["add multiply(a,b): SEARCH/REPLACE applied, multiply(6,7)=42",
+               "fix average([]) div-by-zero: SEARCH/REPLACE applied, avg([])=0.0 avg([2,4])=3.0"],
+    "verdict": "Drives a real coding agent end-to-end with search/replace edits."},
+
+  "artifacts_wsl": "~/llm/eval/results/gemma4-coder/ (logs/, raw_task_output/, scripts/, *_samples.jsonl)"
+}

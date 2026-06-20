@@ -1,0 +1,24 @@
+(warming up / loading model on first call...)
+[PASS] 1 single call (get_weather/Paris)
+        ['get_weather'] {"location":"Paris"}
+[PASS] 2 choose right tool (read_file/config.yaml)
+        ['read_file'] {"path":"config.yaml"}
+[PASS] 3 abstain (17*23=391, no tool)
+        tool_calls=0 content='391'
+[PASS] 4 multi-turn (uses tool result)
+        final='The weather in Tokyo is clear with a temperature of 21°C.'
+[FAIL] 5 write_file via tool
+        None content='<function=write_file>\n<parameter=path>\nhello.py\n</parameter>'
+[FAIL] 6 write_file tool_choice=required
+        None
+[PASS] 7 run_shell(pytest)
+        ['run_shell'] {"cmd":"pytest"}
+[PASS] 8 parallel reads (a.py + b.py)
+        num=2 names=['read_file', 'read_file']
+[PASS] 9 edit_file (8000->9000)
+        ['edit_file'] {"path":"server.py","old":"8000","new":"9000"}
+[PASS] 10 enum arg (Berlin/fahrenheit)
+        {"location":"Berlin","unit":"fahrenheit"}
+
+==== QWEN3-CODER TOOL SUITE: 8/10 passed ====
+done.

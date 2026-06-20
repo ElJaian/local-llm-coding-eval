@@ -1,0 +1,67 @@
+[1/40] HumanEval/0  277c  t=12s
+[2/40] HumanEval/1  506c  t=20s
+[3/40] HumanEval/2  76c  t=28s
+[4/40] HumanEval/3  201c  t=49s
+[5/40] HumanEval/4  186c  t=60s
+[6/40] HumanEval/5  260c  t=68s
+[7/40] HumanEval/6  466c  t=81s
+[8/40] HumanEval/7  149c  t=87s
+[9/40] HumanEval/8  233c  t=94s
+[10/40] HumanEval/9  301c  t=103s
+[11/40] HumanEval/10  206c  t=111s
+[12/40] HumanEval/11  327c  t=124s
+[13/40] HumanEval/12  157c  t=131s
+[14/40] HumanEval/13  127c  t=141s
+[15/40] HumanEval/14  128c  t=152s
+[16/40] HumanEval/15  85c  t=158s
+[17/40] HumanEval/16  86c  t=163s
+[18/40] HumanEval/17  661c  t=173s
+[19/40] HumanEval/18  279c  t=190s
+[20/40] HumanEval/19  650c  t=206s
+[21/40] HumanEval/20  437c  t=223s
+[22/40] HumanEval/21  271c  t=232s
+[23/40] HumanEval/22  348c  t=244s
+[24/40] HumanEval/23  153c  t=255s
+[25/40] HumanEval/24  125c  t=271s
+[26/40] HumanEval/25  260c  t=288s
+[27/40] HumanEval/26  222c  t=298s
+[28/40] HumanEval/27  51c  t=303s
+[29/40] HumanEval/28  240c  t=309s
+[30/40] HumanEval/29  149c  t=317s
+[31/40] HumanEval/30  55c  t=322s
+[32/40] HumanEval/31  237c  t=334s
+[33/40] HumanEval/32  837c  t=353s
+[34/40] HumanEval/33  174c  t=379s
+[35/40] HumanEval/34  40c  t=383s
+[36/40] HumanEval/35  37c  t=388s
+[37/40] HumanEval/36  0c  t=450s
+[38/40] HumanEval/37  216c  t=462s
+[39/40] HumanEval/38  224c  t=480s
+[40/40] HumanEval/39  333c  t=491s
+GEN_DONE /home/dev/llm/eval/humaneval_samples.jsonl  total=491s
+=== EVALPLUS EVALUATE (base + plus tests) ===
+Computing expected output...
+Expected outputs computed in 198.30s
+Reading samples...
+0it [00:00, ?it/s]1it [00:01,  1.39s/it]2it [00:01,  1.52it/s]26it [00:01, 27.91it/s]40it [00:01, 23.47it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/dev/llm/eval/.venv/lib/python3.11/site-packages/evalplus/evaluate.py", line 363, in <module>
+    main()
+  File "/home/dev/llm/eval/.venv/lib/python3.11/site-packages/evalplus/evaluate.py", line 359, in main
+    Fire(evaluate)
+  File "/home/dev/llm/eval/.venv/lib/python3.11/site-packages/fire/core.py", line 135, in Fire
+    component_trace = _Fire(component, args, parsed_flag_args, context, name)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/llm/eval/.venv/lib/python3.11/site-packages/fire/core.py", line 468, in _Fire
+    component, remaining_args = _CallAndUpdateTrace(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/llm/eval/.venv/lib/python3.11/site-packages/fire/core.py", line 684, in _CallAndUpdateTrace
+    component = fn(*varargs, **kwargs)
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dev/llm/eval/.venv/lib/python3.11/site-packages/evalplus/evaluate.py", line 230, in evaluate
+    assert len(completion_id) == len(problems), "Missing problems in samples"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Missing problems in samples
+EVAL_DONE
