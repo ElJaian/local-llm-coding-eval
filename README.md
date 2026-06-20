@@ -21,9 +21,17 @@ A **personal testing framework** for evaluating local coding LLMs as **agent bac
 | OS | Windows 11 + **WSL2 (Ubuntu)** |
 | Engines | llama.cpp (CUDA sm_120, `98d5e8b`) · ollama 0.17.7 |
 
-## Models tested (original, unmodified)
-- **gemma-4-12B-coder-fable5-composer2.5-v1** (GGUF) — dense 11.9 B, reasoning/"thinking" coder. Served via **llama.cpp Q6_K**.
-- **Qwen3-Coder-30B-A3B-Instruct** — MoE, 30.5 B total / ~3 B active. Served via **ollama Q4_K_M** (~25% CPU / 75% GPU offload).
+## Models in this framework (original, unmodified)
+5 models live locally on this box. Coverage so far — the detailed coding results below are for the two **coders**:
+
+| Model | Quant · runtime | Type | Coding-agent eval | Vision |
+|---|---|---|---|---|
+| **gemma-4-12B-it** (base) | Q4_K_M · llama.cpp | text **+ vision** | ⏳ planned | ✅ [VISION.md](VISION.md) |
+| **gemma-4-12B-coder** (fable5/composer) | Q6_K / Q8_0 · llama.cpp | reasoning coder | ✅ done | ❌ text-only |
+| **Qwen3-Coder-30B-A3B** | Q4_K_M · ollama | MoE (~3 B active) | ✅ done | ❌ text-only |
+| **Qwen3-14B** | Q4_K_M · llama.cpp | dense | ⏳ planned | ❌ text-only |
+
+> A standardized **speed + prompt-processing + context-scaling** benchmark across all 5 (plus an Aider-polyglot subset) is queued — see [Roadmap](#roadmap).
 
 ---
 
@@ -67,6 +75,15 @@ graphs/            # charts
 COMPARISON.md      # detailed side-by-side
 ```
 Eval tooling: `evalplus` + `aider 0.86` in a dedicated venv. Serving flags and per-model details are in `COMPARISON.md` and each script's header.
+
+## Roadmap
+Planned / in progress (lands as **measured** data, never estimates):
+- **Speed + prompt-processing + context-scaling** (tg vs depth 0/4K/16K/32K) for all 5 local models — `scripts/bench_speed_context.sh`.
+- **Max context that fits** on 16 GB per model.
+- **Aider-polyglot** subset (~25 exercises) on the top model(s).
+- Charts for the above.
+
+Bonus (already verified, off the coding theme): the base **gemma-4-12B-it** also does **vision** → [VISION.md](VISION.md).
 
 ---
 *Personal project — measurements taken 2026-06-20 on the hardware above. Not affiliated with the model authors. PRs/issues with other hardware welcome.*

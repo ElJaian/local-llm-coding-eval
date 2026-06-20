@@ -22,7 +22,7 @@ Reproducibility matters, and getting this Blackwell + WSL2 stack working was pai
 ## Inference engines
 | | |
 |---|---|
-| **llama.cpp** | build `98d5e8b` · GCC 13.3.0 · `CUDA ARCHS=1200` · `USE_GRAPHS=1` · `BLACKWELL_NATIVE_FP4=1` · flash-attn · built with libcurl/OpenSSL (needed for `-hf`) |
+| **llama.cpp** | build `98d5e8b` · GCC 13.3.0 · `CUDA ARCHS=1200` · `USE_GRAPHS=1` · `BLACKWELL_NATIVE_FP4=1` · flash-attn · libcurl/OpenSSL (for `-hf`) · **multimodal (mtmd)**: `llama-mtmd-cli` + `libmtmd` → image **and** audio (see [VISION.md](VISION.md)) |
 | **ollama** | `0.17.7` (used for the MoE qwen3-coder-30B) |
 
 ## Eval tooling (dedicated venv, isolated from inference/training venvs)
