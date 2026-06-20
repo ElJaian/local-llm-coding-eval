@@ -3,6 +3,8 @@
 A **personal testing framework** for evaluating local coding LLMs as **agent backends** on consumer hardware. No fine-tuning here — these are **direct, independent tests of the original published models**, run end-to-end on one machine with open, reproducible scripts.
 
 > Validated stack so far: **WSL2 + llama.cpp + ollama** on an **RTX 5060 Ti 16 GB** (Blackwell). One model at a time, full GPU.
+>
+> 🛠️ **Exact versions (Python, CUDA, driver, llama.cpp build, ollama) + the Blackwell/WSL2 setup gotchas → [ENVIRONMENT.md](ENVIRONMENT.md).**
 
 ## Why this exists
 "HumanEval 90%" tells you almost nothing about whether a model can *drive a coding agent*. So this framework measures four things that actually matter for agentic use, on hardware people actually own:
