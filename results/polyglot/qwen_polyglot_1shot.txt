@@ -1,0 +1,26 @@
+[affine-cipher] PASS
+[beer-song] PASS
+[book-store] FAIL
+[bottle-song] PASS
+[bowling] FAIL
+[connect] FAIL
+[dominoes] FAIL
+[dot-dsl] FAIL
+[food-chain] FAIL
+[forth] FAIL
+[go-counting] FAIL
+[grade-school] FAIL
+[grep] FAIL
+[hangman] FAIL
+[list-ops] FAIL
+[paasio] FAIL
+[phone-number] FAIL
+[pig-latin] FAIL
+[poker] FAIL
+[pov] FAIL
+[proverb] FAIL
+[react] FAIL
+[rest-api] FAIL
+[robot-name] FAIL
+[scale-generator] PASS
+==== POLYGLOT (python split, direct-gen, temp 0.2) qwen3-coder:30b: 4/25 ====

@@ -1,0 +1,11 @@
+######## gemma-4-it-Q4 :: /home/dev/.cache/huggingface/hub/models--ggml-org--gemma-4-12B-it-GGUF/snapshots/44ee90c4b61e888ac5b318a54ec7a94df61e9cd7/gemma-4-12B-it-Q4_K_M.gguf :: 18:56:50 ########
+  -> gemma-4-it-Q4.json (16094 bytes) | errtail:   Device 0: NVIDIA GeForce RTX 5060 Ti, compute capability 12.0, VMM: yes, VRAM: 16310 MiB
+######## gemma4coder-Q6 :: /home/dev/llm/infer/models/gemma4-coder/gemma4-coding-Q6_K.gguf :: 18:58:28 ########
+  -> gemma4coder-Q6.json (14976 bytes) | errtail:   Device 0: NVIDIA GeForce RTX 5060 Ti, compute capability 12.0, VMM: yes, VRAM: 16310 MiB
+######## gemma4coder-Q8 :: /home/dev/llm/infer/models/gemma4-coder/gemma4-coding-Q8_0.gguf :: 19:02:12 ########
+  -> gemma4coder-Q8.json (14987 bytes) | errtail:   Device 0: NVIDIA GeForce RTX 5060 Ti, compute capability 12.0, VMM: yes, VRAM: 16310 MiB
+######## qwen3-14b-Q4 :: /home/dev/.cache/huggingface/hub/models--bartowski--Qwen_Qwen3-14B-GGUF/snapshots/bd080f768a6401c2d5a7fa53a2e50cd8218a9ce2/Qwen_Qwen3-14B-Q4_K_M.gguf :: 19:08:51 ########
+  -> qwen3-14b-Q4.json (16112 bytes) | errtail:   Device 0: NVIDIA GeForce RTX 5060 Ti, compute capability 12.0, VMM: yes, VRAM: 16310 MiB
+qwen3-coder-30B num_ctx=4096: tg=42.5 t/s (256 tok)
+qwen3-coder-30B num_ctx=16384: tg=35.1 t/s (256 tok)
+qwen3-coder-30B num_ctx=32768: tg=34.2 t/s (256 tok)

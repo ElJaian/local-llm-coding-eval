@@ -24,14 +24,14 @@ A **personal testing framework** for evaluating local coding LLMs as **agent bac
 ## Models in this framework (original, unmodified)
 5 models live locally on this box. Coverage so far — the detailed coding results below are for the two **coders**:
 
-| Model | Quant · runtime | Type | Coding-agent eval | Vision |
-|---|---|---|---|---|
-| **gemma-4-12B-it** (base) | Q4_K_M · llama.cpp | text **+ vision** | ⏳ planned | ✅ [VISION.md](VISION.md) |
-| **gemma-4-12B-coder** (fable5/composer) | Q6_K / Q8_0 · llama.cpp | reasoning coder | ✅ done | ❌ text-only |
-| **Qwen3-Coder-30B-A3B** | Q4_K_M · ollama | MoE (~3 B active) | ✅ done | ❌ text-only |
-| **Qwen3-14B** | Q4_K_M · llama.cpp | dense | ⏳ planned | ❌ text-only |
+| Model | Quant · runtime | Speed/ctx | HumanEval+ · tools · aider | Vision |
+|---|---|:---:|:---:|:---:|
+| **gemma-4-12B-it** (base) | Q4 · llama.cpp | ✅ | – | ✅ [VISION.md](VISION.md) |
+| **gemma-4-12B-coder** (fable5/composer) | Q6/Q8 · llama.cpp | ✅ | ✅ | ❌ text-only |
+| **Qwen3-Coder-30B-A3B** | Q4 · ollama (MoE) | ✅ | ✅ **+ polyglot** | ❌ text-only |
+| **Qwen3-14B** (dense) | Q4 · llama.cpp | ✅ | – | ❌ text-only |
 
-> A standardized **speed + prompt-processing + context-scaling** benchmark across all 5 (plus an Aider-polyglot subset) is queued — see [Roadmap](#roadmap).
+> **Speed + prompt-processing + context-scaling for all 5** → [SPEED-CONTEXT.md](SPEED-CONTEXT.md). The coding-agent eval (HumanEval+ / tools / aider, below) covered the two **coders**; the base gemma-4-it & Qwen3-14B were measured for speed/context only.
 
 ---
 
@@ -77,13 +77,12 @@ COMPARISON.md      # detailed side-by-side
 Eval tooling: `evalplus` + `aider 0.86` in a dedicated venv. Serving flags and per-model details are in `COMPARISON.md` and each script's header.
 
 ## Roadmap
-Planned / in progress (lands as **measured** data, never estimates):
-- **Speed + prompt-processing + context-scaling** (tg vs depth 0/4K/16K/32K) for all 5 local models — `scripts/bench_speed_context.sh`.
-- **Max context that fits** on 16 GB per model.
-- **Aider-polyglot** subset (~25 exercises) on the top model(s).
-- Charts for the above.
+Done (all **measured**, never estimates):
+- ✅ **Speed + prompt-processing + context-scaling** (tg/pp vs depth 0/4K/16K/32K) for all 5 local models → [SPEED-CONTEXT.md](SPEED-CONTEXT.md).
+- ✅ **Polyglot** (Python-25, canonical 2-try w/ test feedback) on qwen3-coder-30B → **16%** — a hard-coding lower bound that contrasts with its 89% HumanEval+ (see SPEED-CONTEXT.md).
+- ✅ Bonus: base **gemma-4-12B-it** does **vision** → [VISION.md](VISION.md).
 
-Bonus (already verified, off the coding theme): the base **gemma-4-12B-it** also does **vision** → [VISION.md](VISION.md).
+Still open: precise max-context probe (`llama-cli` hung — dropped, floor ≥32K from llama-bench); full Aider-Polyglot (225 ex / 6 langs / search-replace); MBPP+.
 
 ---
 *Personal project — measurements taken 2026-06-20 on the hardware above. Not affiliated with the model authors. PRs/issues with other hardware welcome.*

@@ -1,0 +1,3 @@
+# Max-context probe via llama-cli proved flaky (hangs on load). Dropped.
+# Floor from llama-bench (REAL): all 4 GPU models ran tg128/pp512 at depth=32768 with -ngl 99 -ctk/v q8_0
+# => all >= 32K context fully on GPU. Higher = VRAM-math estimate (see README).
