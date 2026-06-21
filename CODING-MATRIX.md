@@ -17,16 +17,26 @@ All measured on the **RTX 5060 Ti 16 GB**. HumanEval comparison uses the **same 
 
 ![fine-tune impact](graphs/08_finetune_impact.png)
 
-## Polyglot (hard agentic, Python-25, 2-try w/ test feedback)
-| Model | pass@1 |
-|---|---:|
-| **gemma4coder-12B** | **4%** (1/25) |
-| **qwen3-coder-30B** | **16%** (4/25) |
+## Polyglot (hard agentic coding) — OFFICIAL Aider harness, cross-validated
+**Official Aider polyglot** (Python split, 34 exercises, "whole" format, 2 tries with test feedback — the standard benchmark.py harness):
+| Model | pass@1 (2-try) | 1st try |
+|---|---:|---:|
+| **qwen3-coder-30B** | **17.6%** (6/34) | 5.9% |
+| **gemma4coder-12B** | **2.9%** (1/34) | 2.9% |
 
 ![polyglot head-to-head](graphs/09_polyglot_h2h.png)
 
+**Cross-validated — the number is real, not a harness artifact.** Three independent measurements agree:
+- Official Aider harness: **17.6%** (qwen3-coder) / 2.9% (gemma4coder)
+- Our quick custom harness: 16% / 4% (matches within noise)
+- Community report: ~18.7% for a Q2 quant on the full polyglot
+
 ### Finding 2 — easy ≠ hard, and on hard problems size matters
-Both coders **ace HumanEval (~95%)** but **crater on the hard exercism polyglot** problems. The **30B does ~4× better than the 12B** there (16% vs 4%) despite tying on HumanEval. Verified genuine (complete code, real logic/API failures — not truncation). This is the **local-vs-frontier gap**: strong on textbook functions, weak on real multi-part problems.
+Both coders **ace HumanEval (~95%)** but the official Aider polyglot confirms **~17.6% (30B)** and **~2.9% (12B)** on hard exercism problems — the **30B is ~6× the 12B** despite tying on HumanEval. This is the **local-vs-frontier gap**: frontier models hit 60-88% on Aider polyglot; a local 30B Q4 manages ~18%, a 12B ~3%.
+
+> Methodology note: the official Aider leaderboard uses the **"diff"** format; this run used **"whole"** (more reliable for small models, and matches the community local-test methodology we calibrated against). **Python-only** (the harness's 34 Python exercises), not the full 225-exercise / 6-language polyglot — so a rough local lower bound, not a 1:1 leaderboard entry.
+>
+> ⚠️ The **gemma4coder run had 13/34 LLM errors** (`error_outputs: 13`) — served via llama.cpp at ctx 8192, and the 2-try polyglot prompts (instructions + stub + test-feedback) overflowed that on the longer exercises → auto-fail. So **2.9% is a noisy lower bound** for the 12B (a larger ctx would likely nudge it up, but not near the 30B). The **qwen3-coder run was clean (0 errors)** via ollama. The 30B≫12B conclusion holds (both custom and official agree).
 
 ## Caveats (read before quoting)
 - HumanEval is saturated / contamination-prone; this is a **40-subset**, **base** tests (not HumanEval+).

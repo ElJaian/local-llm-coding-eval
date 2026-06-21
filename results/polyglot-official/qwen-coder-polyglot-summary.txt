@@ -1,0 +1,11 @@
+  edit_format: whole
+  error_outputs: 0
+  model: ollama_chat/qwen3-coder:30b
+  pass_num_1: 2
+  pass_num_2: 6
+  pass_rate_1: 5.9
+  pass_rate_2: 17.6
+  percent_cases_well_formed: 100.0
+  seconds_per_case: 159.4
+  syntax_errors: 0
+  test_cases: 34

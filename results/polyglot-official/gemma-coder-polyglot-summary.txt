@@ -1,0 +1,11 @@
+  edit_format: whole
+  error_outputs: 13
+  model: openai/gemma4-coder
+  pass_num_1: 1
+  pass_num_2: 1
+  pass_rate_1: 2.9
+  pass_rate_2: 2.9
+  percent_cases_well_formed: 100.0
+  seconds_per_case: 82.4
+  syntax_errors: 0
+  test_cases: 34
