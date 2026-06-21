@@ -1,0 +1,3 @@
+BASE-HumanEval pass 38/40 = 95.0%
+  FAIL HumanEval/26 AssertionError
+  FAIL HumanEval/32 AssertionError

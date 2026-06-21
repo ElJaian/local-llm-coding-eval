@@ -1,0 +1,11 @@
+BASE-HumanEval pass 17/40 = 42.5%
+  FAIL HumanEval/1 EMPTY
+  FAIL HumanEval/2 EMPTY
+  FAIL HumanEval/5 EMPTY
+  FAIL HumanEval/6 EMPTY
+  FAIL HumanEval/8 EMPTY
+  FAIL HumanEval/9 EMPTY
+  FAIL HumanEval/10 EMPTY
+  FAIL HumanEval/13 EMPTY
+  FAIL HumanEval/17 EMPTY
+  FAIL HumanEval/18 EMPTY

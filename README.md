@@ -24,14 +24,16 @@ A **personal testing framework** for evaluating local coding LLMs as **agent bac
 ## Models in this framework (original, unmodified)
 5 models live locally on this box. Coverage so far — the detailed coding results below are for the two **coders**:
 
-| Model | Quant · runtime | Speed/ctx | HumanEval+ · tools · aider | Vision |
+| Model | Quant · runtime | Speed/ctx | Code correctness | Vision |
 |---|---|:---:|:---:|:---:|
-| **gemma-4-12B-it** (base) | Q4 · llama.cpp | ✅ | – | ✅ [VISION.md](VISION.md) |
-| **gemma-4-12B-coder** (fable5/composer) | Q6/Q8 · llama.cpp | ✅ | ✅ | ❌ text-only |
-| **Qwen3-Coder-30B-A3B** | Q4 · ollama (MoE) | ✅ | ✅ **+ polyglot** | ❌ text-only |
-| **Qwen3-14B** (dense) | Q4 · llama.cpp | ✅ | – | ❌ text-only |
+| **gemma-4-12B-it** (base) | Q4 · llama.cpp | ✅ | HE-40: **42.5%** \* | ✅ [VISION.md](VISION.md) |
+| **gemma-4-12B-coder** (fable5/composer) | Q6/Q8 · llama.cpp | ✅ | HumanEval+ **85.4%** · HE-40 **95%** | ❌ text-only |
+| **Qwen3-Coder-30B-A3B** | Q4 · ollama (MoE) | ✅ | HumanEval+ **89.0%** · polyglot 16% | ❌ text-only |
+| **Qwen3-14B** (dense) | Q4 · llama.cpp | ✅ | HE-40: **95%** | ❌ text-only |
 
-> **Speed + prompt-processing + context-scaling for all 5** → [SPEED-CONTEXT.md](SPEED-CONTEXT.md). The coding-agent eval (HumanEval+ / tools / aider, below) covered the two **coders**; the base gemma-4-it & Qwen3-14B were measured for speed/context only.
+> Speed/context for all 5 → [SPEED-CONTEXT.md](SPEED-CONTEXT.md) · cross-model coding matrix → [CODING-MATRIX.md](CODING-MATRIX.md). \*gemma-4-it base had 10/40 empties (over-thinking); attempted-only ≈ 57%.
+>
+> **Two findings:** (1) the **fable5/composer fine-tune lifts gemma-4 from 42.5% → 95%** on HumanEval-40. (2) Both coders **ace HumanEval (~95%) but crater on hard polyglot** (12B 4%, 30B 16%) — the local-vs-frontier gap.
 
 ---
 
