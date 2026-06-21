@@ -33,7 +33,7 @@ A **personal testing framework** for evaluating local coding LLMs as **agent bac
 
 > Speed/context for all 5 → [SPEED-CONTEXT.md](SPEED-CONTEXT.md) · cross-model coding matrix → [CODING-MATRIX.md](CODING-MATRIX.md). \*gemma-4-it base had 10/40 empties (over-thinking); attempted-only ≈ 57%.
 >
-> **Two findings:** (1) the **fable5/composer fine-tune lifts gemma-4 from 42.5% → 95%** on HumanEval-40. (2) Both coders **ace HumanEval (~95%) but crater on hard polyglot** (official Aider: 12B **2.9%**, 30B **17.6%**) — the local-vs-frontier gap.
+> **Two findings:** (1) the **fable5/composer fine-tune lifts gemma-4 from 42.5% → 95%** on HumanEval-40. (2) Both coders **ace HumanEval (~95%) but crater on hard polyglot** (official Aider: 12B **≈0-3%**, 30B **17.6%**) — the local-vs-frontier gap.
 
 ---
 
@@ -81,7 +81,7 @@ Eval tooling: `evalplus` + `aider 0.86` in a dedicated venv. Serving flags and p
 ## Roadmap
 Done (all **measured**, never estimates):
 - ✅ **Speed + prompt-processing + context-scaling** (tg/pp vs depth 0/4K/16K/32K) for all 5 local models → [SPEED-CONTEXT.md](SPEED-CONTEXT.md).
-- ✅ **Polyglot** — **OFFICIAL Aider harness** (Python-34, 2-try): qwen3-coder-30B **17.6%**, gemma4coder-12B **2.9%**; cross-validated by our custom harness + community (~18.7%). See [CODING-MATRIX.md](CODING-MATRIX.md).
+- ✅ **Polyglot** — **OFFICIAL Aider harness** (Python-34, 2-try): qwen3-coder-30B **17.6%** (cross-validated by our custom 16% + community ~18.7%), gemma4coder-12B **≈0-3%** (over-reasons pathologically on hard problems — see [CODING-MATRIX.md](CODING-MATRIX.md)).
 - ✅ Bonus: base **gemma-4-12B-it** does **vision** → [VISION.md](VISION.md).
 
 Still open: precise max-context probe (`llama-cli` hung — dropped, floor ≥32K from llama-bench); full Aider-Polyglot (225 ex / 6 langs / search-replace); MBPP+.

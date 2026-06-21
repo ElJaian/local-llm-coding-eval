@@ -22,7 +22,7 @@ All measured on the **RTX 5060 Ti 16 GB**. HumanEval comparison uses the **same 
 | Model | pass@1 (2-try) | 1st try |
 |---|---:|---:|
 | **qwen3-coder-30B** | **17.6%** (6/34) | 5.9% |
-| **gemma4coder-12B** | **2.9%** (1/34) | 2.9% |
+| **gemma4coder-12B** | **≈0–3%** \* | — |
 
 ![polyglot head-to-head](graphs/09_polyglot_h2h.png)
 
@@ -36,7 +36,11 @@ Both coders **ace HumanEval (~95%)** but the official Aider polyglot confirms **
 
 > Methodology note: the official Aider leaderboard uses the **"diff"** format; this run used **"whole"** (more reliable for small models, and matches the community local-test methodology we calibrated against). **Python-only** (the harness's 34 Python exercises), not the full 225-exercise / 6-language polyglot — so a rough local lower bound, not a 1:1 leaderboard entry.
 >
-> ⚠️ The **gemma4coder run had 13/34 LLM errors** (`error_outputs: 13`) — served via llama.cpp at ctx 8192, and the 2-try polyglot prompts (instructions + stub + test-feedback) overflowed that on the longer exercises → auto-fail. So **2.9% is a noisy lower bound** for the 12B (a larger ctx would likely nudge it up, but not near the 30B). The **qwen3-coder run was clean (0 errors)** via ollama. The 30B≫12B conclusion holds (both custom and official agree).
+> \* **gemma4coder-12B is near-zero on hard polyglot — and over-reasons pathologically.** Two runs pin it down:
+> - **ctx 8192:** 2.9% (1/34), but **13/34 errored on context overflow** (the 2-try prompts blew past 8192).
+> - **ctx 32K (clean, no overflow):** **0/11** on the first 11 before we stopped it — the model emitted **~18,000-token "thinking" responses** per hard exercise (~15 min each → a full run = many hours) and still failed every one.
+>
+> So gemma4coder ≈ **0–3%** on hard Python polyglot — and a notable trait of this fine-tune surfaces: it **over-reasons** on hard problems (giant thinking blocks) yet doesn't solve them, which also makes it impractical to bench at full context. The **qwen3-coder run was clean** (0 errors, no over-thinking — it's a non-thinking instruct coder). The **30B ≫ 12B** conclusion is robust across all measurements.
 
 ## Caveats (read before quoting)
 - HumanEval is saturated / contamination-prone; this is a **40-subset**, **base** tests (not HumanEval+).
