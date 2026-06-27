@@ -19,10 +19,10 @@ A **personal testing framework** for evaluating local coding LLMs as **agent bac
 | GPU | NVIDIA RTX 5060 Ti **16 GB** (Blackwell, sm_120) |
 | CPU / RAM | Ryzen 5 7600X · 16 GB DDR5-4800 |
 | OS | Windows 11 + **WSL2 (Ubuntu)** |
-| Engines | llama.cpp (CUDA sm_120, `98d5e8b`) · ollama 0.17.7 |
+| Engines | llama.cpp (CUDA sm_120, `98d5e8b`; `5c7c22c` for Qwen3.6) · ollama 0.17.7 |
 
 ## Models in this framework (original, unmodified)
-5 models live locally on this box. Coverage so far — the detailed coding results below are for the two **coders**:
+6 models live locally on this box. Coverage so far — the detailed coding results below are for the two original **coders**; **Qwen3.6-35B-A3B** is the newest add (speed measured, correctness pending — see roadmap):
 
 | Model | Quant · runtime | Speed/ctx | Code correctness | Vision |
 |---|---|:---:|:---:|:---:|
@@ -30,8 +30,9 @@ A **personal testing framework** for evaluating local coding LLMs as **agent bac
 | **gemma-4-12B-coder** (fable5/composer) | Q6/Q8 · llama.cpp | ✅ | HumanEval+ **85.4%** · HE-40 **95%** | ❌ text-only |
 | **Qwen3-Coder-30B-A3B** | Q4 · ollama (MoE) | ✅ | HumanEval+ **89.0%** · polyglot **17.6%** | ❌ text-only |
 | **Qwen3-14B** (dense) | Q4 · llama.cpp | ✅ | HE-40: **95%** | ❌ text-only |
+| **Qwen3.6-35B-A3B** (MoE) | Q3_K_XL · llama.cpp | ✅ ~55 t/s | ⏳ pending (serve) | ❌ text-only |
 
-> Speed/context for all 5 → [SPEED-CONTEXT.md](SPEED-CONTEXT.md) · cross-model coding matrix → [CODING-MATRIX.md](CODING-MATRIX.md). \*gemma-4-it base had 10/40 empties (over-thinking); attempted-only ≈ 57%.
+> Speed/context for all 6 → [SPEED-CONTEXT.md](SPEED-CONTEXT.md) · cross-model coding matrix → [CODING-MATRIX.md](CODING-MATRIX.md). \*gemma-4-it base had 10/40 empties (over-thinking); attempted-only ≈ 57%.
 >
 > **Two findings:** (1) the **fable5/composer fine-tune lifts gemma-4 from 42.5% → 95%** on HumanEval-40. (2) Both coders **ace HumanEval (~95%) but crater on hard polyglot** (official Aider: 12B **≈0-3%**, 30B **17.6%**) — the local-vs-frontier gap.
 
@@ -80,11 +81,21 @@ Eval tooling: `evalplus` + `aider 0.86` in a dedicated venv. Serving flags and p
 
 ## Roadmap
 Done (all **measured**, never estimates):
-- ✅ **Speed + prompt-processing + context-scaling** (tg/pp vs depth 0/4K/16K/32K) for all 5 local models → [SPEED-CONTEXT.md](SPEED-CONTEXT.md).
+- ✅ **Speed + prompt-processing + context-scaling** (tg/pp vs depth 0/4K/16K/32K) for all **6** local models → [SPEED-CONTEXT.md](SPEED-CONTEXT.md). Latest add: **Qwen3.6-35B-A3B** (Q3_K_XL, MoE) — ~53–57 t/s gen (flat to 32K), ~1000 t/s pp, the fastest coder-grade model in the set.
 - ✅ **Polyglot** — **OFFICIAL Aider harness** (Python-34, 2-try): qwen3-coder-30B **17.6%** (cross-validated by our custom 16% + community ~18.7%), gemma4coder-12B **≈0-3%** (over-reasons pathologically on hard problems — see [CODING-MATRIX.md](CODING-MATRIX.md)).
 - ✅ Bonus: base **gemma-4-12B-it** does **vision** → [VISION.md](VISION.md).
 
-Still open: precise max-context probe (`llama-cli` hung — dropped, floor ≥32K from llama-bench); full Aider-Polyglot (225 ex / 6 langs / search-replace); MBPP+.
+### Pending evals
+- ⏳ **Qwen3.6-35B-A3B correctness** — HumanEval+, tool-calling, polyglot. **Blocked by RAM:** `llama-server` hangs loading the 15.7 GB model because **system RAM (16 GB), not the GPU, is the bottleneck** — model + Windows + WSL pin RAM at ~14.9/15.1 GB and the load thrashes/swaps (`llama-bench` loads-and-runs in one shot so speed is fine; an interactive server isn't). Unblocks with more RAM (see hardware roadmap).
+- ⏳ Precise max-context probe (`llama-cli` hung — dropped, floor ≥32K from llama-bench); full Aider-Polyglot (225 ex / 6 langs / search-replace); MBPP+.
+
+### Hardware roadmap
+The **16 GB system RAM ceiling** (not VRAM) is what currently caps serving ~16 GB MoE weights. Planned upgrades, in order — each re-runs the speed + correctness suite so the hardware effect is **measured, not guessed**:
+1. **+16 GB RAM (→ 32 GB total)** — first; should unblock serving Qwen3.6 and its pending evals, and kill the load thrash.
+2. **Dual-GPU on current RAM (16 GB)** — more VRAM for bigger models / less offload / parallel serving.
+3. **Dual-GPU on the upgraded RAM (32 GB)** — the full setup.
+
+PRs/issues with results on other hardware are welcome.
 
 ---
 *Personal project — measurements taken 2026-06-20 on the hardware above. Not affiliated with the model authors. PRs/issues with other hardware welcome.*
