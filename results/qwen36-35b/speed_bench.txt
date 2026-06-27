@@ -1,0 +1,36 @@
+Qwen3.6-35B-A3B  Q3_K_XL (unsloth/Qwen3.6-35B-A3B-GGUF, UD-Q3_K_XL.gguf, 15.7 GB / 16,845,511,648 bytes)
+arch: qwen35moe   params: 34.66B   RTX 5060 Ti 16GB (Blackwell sm_120)
+engine: llama.cpp build 5c7c22c (rebuilt for sm_120, CUDA 12.8)
+flags: -ngl 99 --n-cpu-moe <N> -fa on   (default f16 KV; idle machine)
+NOTE: numbers are from llama-bench (loads+runs in one shot). llama-server HANGS on load
+      for this model (mmap + --n-cpu-moe) — port open (/health 503), VRAM frozen ~1GB, 2+min
+      no progress; --no-mmap reaches ~11.8GB VRAM then stalls (15.7GB model > 12GB WSL RAM).
+
+=== ncmoe sweep (-p 512 -n 128) ===
+ncmoe  pp512 (t/s)        tg128 (t/s)
+18     63.53 ± 39.51      32.01 ± 7.72
+14     423.30 ± 246.11    56.21 ± 1.16      <- tg very stable
+10     325.68 ± 139.09    61.37 ± 4.94
+ 8      87.74 ± 56.15     49.37 ± 4.34
+ 6     234.87 ± 154.75    65.51 ± 23.73
+
+=== confirm (-r 7) ===
+ncmoe  pp512              tg128
+12      68.50 ± 85.07     48.97 ± 13.05
+10     364.31 ± 187.81    52.48 ± 15.29
+ 6      96.93 ± 79.06     54.28 ± 4.96
+
+=== depth scaling, ncmoe 14, -p 512 -n 128 -r 5 ===
+test              t/s
+pp512             562.04 ± 377.53   <- COLD (depth 0); discard
+tg128             57.58 ± 0.49
+pp512 @ d4096    1044.24 ± 37.22    <- warm pp ~1000
+tg128 @ d4096      50.96 ± 14.74
+pp512 @ d16384   1064.66 ± 14.49
+tg128 @ d16384     49.87 ± 14.33
+pp512 @ d32768    984.89 ± 31.12
+tg128 @ d32768     53.29 ± 0.18
+
+SUMMARY (recordable): prompt-processing ~1000 t/s (warm), generation ~53-57 t/s nearly flat 0->32K.
+Cold-start (depth-0 pp, mid-depth tg ±14) = warm/cold expert paging, not external load (machine idle).
+NOT measured for 3.6: HumanEval+ / tool-calling / polyglot (need a working server).
